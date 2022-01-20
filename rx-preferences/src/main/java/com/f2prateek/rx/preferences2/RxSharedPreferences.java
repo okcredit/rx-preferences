@@ -1,5 +1,6 @@
 package com.f2prateek.rx.preferences2;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
@@ -175,8 +176,9 @@ public final class RxSharedPreferences {
     checkNotNull(defaultValue, "defaultValue == null");
     return new RealPreference<>(preferences, key, defaultValue, StringSetAdapter.INSTANCE, keyChanges);
   }
-  
+
+  @SuppressLint("ApplySharedPref")
   public void clear() {
-    preferences.edit().clear().apply();
+    preferences.edit().clear().commit();
   }
 }

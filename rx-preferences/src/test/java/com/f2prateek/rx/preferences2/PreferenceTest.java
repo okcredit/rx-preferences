@@ -214,7 +214,7 @@ public class PreferenceTest {
             return null;
           }
         });
-    preferences.edit().putString("foo", "1,2").apply();
+    preferences.edit().putString("foo", "1,2").commit();
     try {
       preference.get();
       fail("Disallow Converter methods from returning null.");

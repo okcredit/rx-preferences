@@ -1,5 +1,6 @@
 package com.f2prateek.rx.preferences2;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
@@ -71,19 +72,21 @@ final class RealPreference<T> implements Preference<T> {
     return adapter.get(key, preferences, defaultValue);
   }
 
+  @SuppressLint("ApplySharedPref")
   @Override public void set(@NonNull T value) {
     checkNotNull(value, "value == null");
     SharedPreferences.Editor editor = preferences.edit();
     adapter.set(key, value, editor);
-    editor.apply();
+    editor.commit();
   }
 
   @Override public boolean isSet() {
     return preferences.contains(key);
   }
 
+  @SuppressLint("ApplySharedPref")
   @Override public synchronized void delete() {
-    preferences.edit().remove(key).apply();
+    preferences.edit().remove(key).commit();
   }
 
   @Override @CheckResult @NonNull public Observable<T> asObservable() {
